@@ -1,0 +1,12 @@
+# Snowflake CLI (snow streamlit deploy) を使う場合に利用する定義ファイル。
+# 手動でSQLからGit連携でデプロイする場合はこのファイルは不要です。
+definition_version: 2
+entities:
+  my_streamlit:
+    type: streamlit
+    identifier: SAMPLE_SIS_APP
+    query_warehouse: <your_warehouse>
+    main_file: streamlit_app.py
+    artifacts:
+      - streamlit_app.py
+      - environment.yml

@@ -33,7 +33,11 @@ git remote add origin https://github.com/<your-account>/<your-repo>.git
 git push -u origin main
 ```
 
-GitHubの場合、認証にはパスワードではなく **Personal Access Token (PAT)** が必要です（Settings → Developer settings → Personal access tokens）。
+GitHubの場合、認証にはパスワードではなく **Personal Access Token (PAT)** が必要です。
+
+PATの作成場所（2026年10月時点で変更なし）: 右上のプロフィールアイコン →  **Settings** → 左サイドバー **Developer settings** → 左サイドバー **Personal access tokens** 配下の **Fine-grained tokens**（推奨）または **Tokens (classic)** → **Generate new token**。
+
+GitHubは現在 **Fine-grained tokens** を推奨しています（対象リポジトリや権限を細かく絞れるため）。このSnowflake連携の用途であれば、対象リポジトリを選択し、権限は `Contents: Read-only` のみで十分です（Snowflakeは読み取り専用でfetchするだけのため）。
 
 ---
 
@@ -136,6 +140,6 @@ CI/CDで自動化する場合は、Snowflake CLI（`snow streamlit deploy`）と
 ## 注意点
 
 - `ORIGIN` のURLは必ずHTTPSで指定してください（SSH不可）。
-- プライベートリポジトリの場合、Secretに設定するパスワードは **Personal Access Token** を推奨します（通常のパスワードではなく）。
+- プライベートリポジトリの場合、Secretに設定するパスワードは **Personal Access Token**（Fine-grained推奨）を使用してください（通常のパスワードではなく）。
 - `ROOT_LOCATION` を使って作成した既存アプリはGit連携・マルチファイル編集に対応していないため、Git連携したい場合は `FROM` 句を使う新方式で作成してください。
 - コンテナランタイムを使う場合は `COMPUTE_POOL` の権限（USAGE）が必要です。外部パッケージ（PyPI）を使う場合は `EXTERNAL_ACCESS_INTEGRATIONS` の設定も必要になります。
